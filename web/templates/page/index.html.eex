@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="jumbotron">
+      <button class="btn btn-primary">This is my computer</button>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="jumbotron">
+      <button class="btn btn-primary">This is someone else's computer</button>
+    </div>
+  </div>
+</div>
