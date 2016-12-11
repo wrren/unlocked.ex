@@ -2,6 +2,7 @@ defmodule Unlocked.User do
   use Unlocked.Web, :model
   import Ecto.Query, only: [from: 2]
 
+  @derive {Poison.Encoder, only: [:id, :name, :picture_url]}
   schema "users" do
     field :name, :string
     field :email, :string

@@ -17,7 +17,7 @@ defmodule Unlocked.Score do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:when, :scorer_id, :victim_id])
-    |> validate_required([:when])
+    |> validate_required([:when, :victim_id, :scorer_id])
     |> assoc_constraint(:scorer)
     |> assoc_constraint(:victim)
     |> validate_scorer_is_not_victim
@@ -35,15 +35,19 @@ defmodule Unlocked.Score do
 
   defp validate_score_interval(changeset) do
     victim_id = get_field(changeset, :victim_id)
-    score_interval = ( Application.get_env(:unlocked, :score_interval) ) * -1
-    query = from s in Unlocked.Score,
-              where: s.victim_id == ^victim_id,
-              where: s.when > from_now(^score_interval, "second"),
-            select: s
+    if is_nil(victim_id) do
+      add_error changeset, :victim_id, "Must specify a person to score against"
+    else
+      score_interval = ( Application.get_env(:unlocked, :score_interval) ) * -1
+      query = from s in Unlocked.Score,
+                where: s.victim_id == ^victim_id,
+                where: s.when > from_now(^score_interval, "second"),
+              select: s
 
-    case Unlocked.Repo.all(query) do
-      [] -> changeset
-      _ -> add_error(changeset, :when, "Too many scores against this user in too short a time")
+      case Unlocked.Repo.all(query) do
+        [] -> changeset
+        _ -> add_error(changeset, :when, "Too many scores against this user in too short a time")
+      end
     end
   end
 
@@ -95,7 +99,47 @@ defmodule Unlocked.Score do
     Unlocked.Repo.all query
   end
 
-  def top_scorers() do
+  def preload(results) do
+    Unlocked.Repo.preload(results, [:scorer, :victim])
+  end
 
+  def top_finders(interval) do
+    interval = interval * -1
+    from s in Unlocked.Score,
+      join: u in Unlocked.User, on: s.scorer_id == u.id,
+    where: s.when >= from_now(^interval, "day"),
+    select: %{scorer: u, count: count(s.id)},
+    group_by: s.scorer_id,
+    having: count(s.id) > 0,
+    order_by: [desc: count(s.id)]
+  end
+
+  def top_finders() do
+    from s in Unlocked.Score,
+      join: u in Unlocked.User, on: s.scorer_id == u.id,
+    select: %{scorer: u, count: count(s.id)},
+    group_by: s.scorer_id,
+    having: count(s.id) > 0,
+    order_by: [desc: count(s.id)]
+  end
+
+  def top_failers(interval) do
+    interval = interval * -1
+    from s in Unlocked.Score,
+      join: u in Unlocked.User, on: s.victim_id == u.id,
+    where: s.when >= from_now(^interval, "day"),
+    select: %{victim: u, count: count(s.id)},
+    group_by: s.victim_id,
+    having: count(s.id) > 0,
+    order_by: [desc: count(s.id)]
+  end
+
+  def top_failers() do
+    from s in Unlocked.Score,
+      join: u in Unlocked.User, on: s.victim_id == u.id,
+    select: %{victim: u, count: count(s.id)},
+    group_by: s.victim_id,
+    having: count(s.id) > 0,
+    order_by: [desc: count(s.id)]
   end
 end

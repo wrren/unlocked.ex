@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="col-xs-12">
+		<%= if assigns[:interval] do %>
+			<%= if @interval == 1 do %>
+				<h3 class="text-center">Top Finders and Offenders for the past day</h3>
+			<% else %>
+				<h3 class="text-center">Top Finders and Offenders for the past <%= @interval %> days</h3>
+			<% end %>
+		<% else %>
+			<h3 class="text-center">Top Finders and Offenders</h3>
+		<% end %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<h3 class="text-center">Top Finders</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Finds</th>
+					<th>Who</th>
+					<th>Avatar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= for find <- @finders do %>
+					<tr>
+						<td><%= find.count %></td>
+						<td><%= find.scorer.name %></td>
+						<td><img src="<%= find.scorer.picture_url %>" width="80" /></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<div>
+<div class="row">
+	<div class="col-xs-12">
+		<h3 class="text-center">Worst Offenders</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Fails</th>
+					<th>Who</th>
+					<th>Avatar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= for fail <- @failers do %>
+					<tr>
+						<td><%= fail.count %></td>
+						<td><%= fail.victim.name %></td>
+						<td><img src="<%= fail.victim.picture_url %>" width="80" /></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<div>

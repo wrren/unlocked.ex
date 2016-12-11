@@ -11,7 +11,7 @@ config :unlocked,
 
 # Configures the endpoint
 config :unlocked, Unlocked.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "unlocked.local.com"],
   secret_key_base: "aDE3lB+tK1nZNJpEH4QcTwt93ylD2s4xr3lS8CAkGa79gpi/7YgNx32iUhYPuKiV",
   render_errors: [view: Unlocked.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Unlocked.PubSub,
@@ -28,13 +28,11 @@ config :ueberauth, Ueberauth,
       default_scope: "email profile",
       hd: "riotgames.com",
       request_url: "/score/auth/google/",
-      callback_url: "/score/result/google/callback"
+      callback_url: "http://unlocked.local.com/score/result/google/callback"
     ]},
     google: {Ueberauth.Strategy.Google, [
       default_scope: "email profile",
-      hd: "riotgames.com",
-      request_url: "/auth/google/",
-      callback_url: "/auth/google/callback"
+      hd: "riotgames.com"
     ]}
   ]
 

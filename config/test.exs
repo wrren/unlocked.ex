@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :unlocked, Unlocked.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
+  username: "unlocked",
+  password: "unlocked",
   database: "unlocked_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
