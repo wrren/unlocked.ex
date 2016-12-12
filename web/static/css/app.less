@@ -1,0 +1,42 @@
+@import "node_modules/bootstrap-material-design/less/bootstrap-material-design";
+@import "../_less/variables";
+@import "../_less/navbar";
+
+@good-blue: rgb( 119, 159, 168 );
+@bad-red: rgb( 191, 30, 29 );
+
+body.dashboard {
+  background-color: @grey-800;
+}
+
+body.report {
+  background-color: white;
+}
+
+body div.row a {
+  text-decoration: underline;
+  color: @red-800;
+}
+
+body div.row a.btn {
+  text-decoration: none;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+.tooltip {
+  color: white;
+}
+
+.tooltip div {
+  background-color: @brand-pop;
+  color: white;
+  border: none;
+}
+
+.form-group .help-block {
+    display: block;
+    color: @bad-red;
+}

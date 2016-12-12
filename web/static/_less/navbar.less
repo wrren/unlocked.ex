@@ -1,0 +1,67 @@
+@import "variables";
+
+.unlocked-navbar, .navbar, navbar-default {
+	background-color: transparent !important;
+	border-top: 3px solid rgba(240, 45, 29, 1);
+
+	.navbar-nav > li > a:hover {
+		color: rgba(240, 45, 29, 1);
+	}
+
+	.navbar-nav > li > a {
+		text-transform: uppercase;
+		color: @brand-primary;
+
+		span {
+			margin-right: 4px;
+		}
+	}
+
+	.nav-search {
+  		margin-right: 40px;
+	}
+
+	.search-input {
+		width: 200px;
+	}
+
+	.search-clear {
+		position:absolute;
+		right:5px;
+		top:0;
+		bottom:0;
+		height:14px;
+		margin:auto;
+		font-size:14px;
+		cursor:pointer;
+		color:#ccc;
+	}
+
+	.navbar-text {
+		text-transform: uppercase;
+		color: @brand-primary;
+
+		a {
+			color: @brand-primary;
+		}
+
+		a:hover {
+			color: rgba(240, 45, 29, 1);
+			text-decoration: none;
+		}
+	}
+	
+	.nav-sync div.spinner-container {
+		display: inline;
+	}
+
+	.nav-sync div.spinner-container svg.spinner {
+		display: inline;
+	}
+
+	.navbar-nav > li > a > .glyphicon {
+		font-size: 12px;
+	}
+}
+
+

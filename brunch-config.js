@@ -20,9 +20,14 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css",
+      joinTo: {
+        "css/app.css": /^(web\/static\/css)/
+      },
       order: {
-        after: ["web/static/css/app.css"] // concat app.css last
+        after: [
+          "web/static/css/app.css",
+          "web/static/css/app.less"
+        ] // concat app.css last
       }
     },
     templates: {
@@ -55,6 +60,12 @@ exports.config = {
       presets: ["es2015", "react"],
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
+    },
+    copycat: {
+      "fonts": ["node_modules/bootstrap/fonts"]
+    },
+    less: {
+      modules: false
     }
   },
 
@@ -69,6 +80,8 @@ exports.config = {
     whitelist: [
       'jquery',
       'phoenix',
+      'bootstrap',
+      'bootstrap-material-design',
       'phoenix_html',
       'react',
       'react-dom'

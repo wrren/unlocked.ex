@@ -6,6 +6,9 @@
 <div class="row">
 	<div class="col-xs-12">
 		<h3 class="text-center">Recent Finds</h3>
+		<%= if length(@finds) == 0 do %>
+			<h5><%= @user.name %> hasn't found any unlocked computers yet</h5>
+		<% else %>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -24,28 +27,33 @@
 				<% end %>
 			</tbody>
 		</table>
+		<% end %>
 	</div>
 <div>
 <div class="row">
 	<div class="col-xs-12">
 		<h3 class="text-center">Recent Fails</h3>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>When</th>
-					<th>Who</th>
-					<th>Avatar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%= for fail <- @fails do %>
+		<%= if length(@finds) == 0 do %>
+			<h5><%= @user.name %> hasn't left their machine unlocked yet</h5>
+		<% else %>
+			<table class="table table-striped">
+				<thead>
 					<tr>
-						<td><%= time_format(fail.when) %></td>
-						<td><%= fail.scorer.name %></td>
-						<td><img src="<%= fail.scorer.picture_url %>" width="80" /></td>
+						<th>When</th>
+						<th>Who</th>
+						<th>Avatar</th>
 					</tr>
-				<% end %>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<%= for fail <- @fails do %>
+						<tr>
+							<td><%= time_format(fail.when) %></td>
+							<td><%= fail.scorer.name %></td>
+							<td><img src="<%= fail.scorer.picture_url %>" width="80" /></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
 	</div>
 <div>

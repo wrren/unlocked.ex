@@ -8,27 +8,51 @@
     <meta name="author" content="">
 
     <title>Unlocked</title>
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/vendor.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </head>
 
   <body>
-    <div class="container-fluid">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="/scoreboard">Scoreboard</a></li>
-            <li><a href="/profile">Profile</a></li>
-          </ul>
-        </nav>
-      </header>
+    <div>
+      <nav class="unlocked-navbar navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/"><img alt="unlocked" src="<%= static_path(@conn, "/images/unlocked.png") %>" width="30px" /></a>
+          </div>
+          <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>Scoreboard
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="<%= scoreboard_path( @conn, :recent ) %>">Recent</a></li>
+                  <li><a href="<%= scoreboard_path( @conn, :top, 30 ) %>">Last 30 Days</a></li>
+                  <li><a href="<%= scoreboard_path( @conn, :top_all_time ) %>">All Time</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <%= if flash = get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= if flash = get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
 
-      <main role="main">
+      <div class="container">
         <%= render @view_module, @view_template, assigns %>
-      </main>
+      </div>
 
     </div> <!-- /container -->
   </body>

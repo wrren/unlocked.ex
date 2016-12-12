@@ -18,9 +18,7 @@ defmodule Unlocked.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-
-    get "/score",   ScoreController, :index
-    post "/score",  ScoreController, :score
+    post "/",  PageController, :score
 
     get "/user", UserController, :index
     get "/user/:id", UserController, :show
@@ -31,8 +29,8 @@ defmodule Unlocked.Router do
     pipe_through :browser
 
     get "/", ScoreboardController, :recent
+    get "/top/", ScoreboardController, :top_all_time
     get "/top/:interval", ScoreboardController, :top
-    get "/top/", ScoreboardController, :top
   end
 
   scope "/auth", Unlocked do

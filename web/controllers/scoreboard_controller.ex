@@ -24,7 +24,7 @@ defmodule Unlocked.ScoreboardController do
 		end
 	end
 
-	def top(conn, _params) do
+	def top_all_time(conn, _params) do
 		finders = Unlocked.Score.top_finders() |> Unlocked.Score.all
 		failers = Unlocked.Score.top_failers() |> Unlocked.Score.all
 		render conn, "top.html", finders: finders, failers: failers
