@@ -1,0 +1,11 @@
+<div class="profile ">
+    <div class="data">
+        <%= @data %>
+    </div>
+    <div class="avatar">
+        <img src="<%= @user.picture_url %>" />
+    </div>
+    <div class="name">
+        <a href="<%= user_path(@conn, :show, @user.id) %>"><%= @user.name %></a>
+    </div>
+</div>

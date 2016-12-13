@@ -5,12 +5,8 @@
 @good-blue: rgb( 119, 159, 168 );
 @bad-red: rgb( 191, 30, 29 );
 
-body.dashboard {
-  background-color: @grey-800;
-}
-
-body.report {
-  background-color: white;
+body {
+    text-transform: uppercase;
 }
 
 body div.row a {
@@ -23,6 +19,10 @@ body div.row a.btn {
 }
 
 h1 {
+  text-transform: uppercase;
+}
+
+h3 {
   text-transform: uppercase;
 }
 
@@ -54,5 +54,114 @@ h1 {
 
     input[type=text].user-name {
         width: 100%;
+    }
+}
+
+table.table {
+    thead tr th {
+        text-transform: uppercase
+    }
+
+    td {
+        font-size: 16pt;
+    }
+
+    td img.avatar {
+        width: 16pt;
+        margin-right: 5px;
+    }
+
+    td.when {
+        font-size: 10pt;
+        padding-top: 18pt;
+    }
+}
+
+ul {
+    list-style-type: none;
+}
+
+div.score-list {
+    h6 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+div.profile {
+    margin-top: 5px;
+    font-size: 16pt;
+
+    div {
+        display: inline-block;
+        padding: 10px;
+        color: white;
+        
+        &.data {
+            float: left;
+            font-size: 10pt;
+            padding-top: 12pt;
+            width: 180px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        &.avatar {
+            float: left;
+            width: 50px;
+
+            img {
+                margin-top: -4px;
+                width: 30px;
+            }
+        }
+
+        &.name {
+            background-color: fade(@brand-primary, 70%);
+            display: block;
+            padding-left: 20px;
+            padding-right: 20px;
+            width: 100%;
+            padding-left: 230px;
+
+            a {
+                text-decoration: none;
+                color: white;
+            }
+        }        
+    }
+}
+
+div.profile-mini {
+    font-size: 16pt;
+
+    div {
+        display: inline-block;
+        padding: 10px;
+        color: white;
+
+        &.avatar {
+            float: left;
+            width: 50px;
+
+            img {
+                margin-top: -4px;
+                width: 30px;
+            }
+        }
+
+        &.name {
+            background-color: fade(@brand-primary, 70%);
+            display: block;
+            padding-left: 20px;
+            padding-right: 20px;
+            width: 100%;
+            padding-left: 50px;
+
+            a {
+                text-decoration: none;
+                color: white;
+            }
+        }        
     }
 }

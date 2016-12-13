@@ -6,19 +6,15 @@
 				<tr>
 					<th>When</th>
 					<th>Scorer</th>
-					<th></th>
-					<th>Offender</th>
-					<th></th>
+					<th>Victim</th>
 				</tr>
 			</thead>
 			<tbody>
 				<%= for find <- @list do %>
 					<tr>
-						<td><%= time_format(find.when) %></td>
-						<td><%= find.scorer.name %></td>
-						<td><img src="<%= find.scorer.picture_url %>" width="40" /></td>
-						<td><%= find.victim.name %></td>
-						<td><img src="<%= find.victim.picture_url %>" width="40" /></td>
+						<td class="when"><%= time_format(find.when) %></td>
+						<td><%= render Unlocked.SharedView, "profile-mini.html", user: find.scorer, conn: @conn %></td>
+						<td><%= render Unlocked.SharedView, "profile-mini.html", user: find.victim, conn: @conn %></td>
 					</tr>
 				<% end %>
 			</tbody>

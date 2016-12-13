@@ -1,0 +1,32 @@
+<div class="container score-list">
+    <div class="row">
+        <%= if length(@user.finds) == 0 && length(@user.fails) == 0 do %>
+            <h6>No Activity</h6>
+        <% end %>
+        <%= if length(@user.finds) > 0 do %>
+        <div class="col-xs-12">
+            <h6>Recent Finds</h6>
+            <ul>
+            <%= for find <- @user.finds do %>
+				<li>
+				<%= render Unlocked.SharedView, "profile.html", user: find.victim, data: time_format(find.when), conn: @conn %>
+				</li>
+			<% end %>
+            </ul>
+        </div>
+        <% end %>
+
+        <%= if length(@user.fails) > 0 do %>
+        <div class="col-xs-12">
+            <h6>Recent Fails</h6>
+            <ul>
+            <%= for fail <- @user.fails do %>
+				<li>
+				<%= render Unlocked.SharedView, "profile.html", user: fail.scorer, data: time_format(fail.when), conn: @conn %>
+				</li>
+			<% end %>
+            </ul>
+        </div>
+        <% end %>
+    </div>
+</div>

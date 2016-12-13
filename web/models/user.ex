@@ -8,7 +8,7 @@ defmodule Unlocked.User do
     field :email, :string
     field :picture_url, :string
 
-    has_many :scores, Unlocked.Score, foreign_key: :scorer_id
+    has_many :finds, Unlocked.Score, foreign_key: :scorer_id
     has_many :fails, Unlocked.Score, foreign_key: :victim_id
 
     timestamps()
@@ -47,6 +47,8 @@ defmodule Unlocked.User do
   end
 
   def preload(results) do
-    Unlocked.Repo.preload(results, [{:scores, [:scorer, :victim]}, {:fails, [:scorer, :victim]}])
+    Unlocked.Repo.preload(results, [{:finds, [:scorer, :victim]}, {:fails, [:scorer, :victim]}])
+    |> Unlocked.Repo.preload( finds: from( f in Unlocked.Score, order_by: [desc: f.when] ) )
+    |> Unlocked.Repo.preload( fails: from( f in Unlocked.Score, order_by: [desc: f.when] ) )
   end
 end
