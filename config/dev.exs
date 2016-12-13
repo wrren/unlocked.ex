@@ -14,6 +14,27 @@ config :unlocked, Unlocked.Endpoint,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../", __DIR__)]]
 
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {Ueberauth.Strategy.Google, [
+      default_scope: "email profile",
+      hd: "riotgames.com",
+      request_url: "/score/auth/google/",
+      callback_url: "http://unlocked.local.com/score/result/google/callback"
+    ]},
+    google: {Ueberauth.Strategy.Google, [
+      default_scope: "email profile",
+      hd: "riotgames.com"
+    ]}
+  ]
+
+# Configures the endpoint
+config :unlocked, Unlocked.Endpoint,
+  url: [host: "unlocked.local.com"],
+  secret_key_base: "aDE3lB+tK1nZNJpEH4QcTwt93ylD2s4xr3lS8CAkGa79gpi/7YgNx32iUhYPuKiV",
+  render_errors: [view: Unlocked.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Unlocked.PubSub,
+           adapter: Phoenix.PubSub.PG2]
 
 # Watch static and templates for browser reloading.
 config :unlocked, Unlocked.Endpoint,

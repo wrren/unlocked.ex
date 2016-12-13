@@ -13,8 +13,16 @@ use Mix.Config
 # which you typically run after static files are built.
 config :unlocked, Unlocked.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
+  url: [host: "unlocked.security.riotgames.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
+
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {Ueberauth.Strategy.Google, [
+      default_scope: "email profile",
+      hd: "riotgames.com"
+    ]}
+  ]
 
 # Do not print debug messages in production
 config :logger, level: :info
