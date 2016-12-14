@@ -19,7 +19,7 @@
 			var $input = $('#user_search');
 
 			$input.typeahead( {source: function(query, process) {
-				if(query.length < 3) {
+				if(query.length < 1) {
 					process([])
 					return
 				}

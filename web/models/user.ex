@@ -47,8 +47,8 @@ defmodule Unlocked.User do
   end
 
   def preload(results) do
-    Unlocked.Repo.preload(results, [{:finds, [:scorer, :victim]}, {:fails, [:scorer, :victim]}])
-    |> Unlocked.Repo.preload( finds: from( f in Unlocked.Score, order_by: [desc: f.when] ) )
-    |> Unlocked.Repo.preload( fails: from( f in Unlocked.Score, order_by: [desc: f.when] ) )
+    query = from(s in Unlocked.Score, order_by: [desc: s.when], preload: [:scorer, :victim])
+    results 
+    |> Unlocked.Repo.preload( [finds: query, fails: query] )
   end
 end
